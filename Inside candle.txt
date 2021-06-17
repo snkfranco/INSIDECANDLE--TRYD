@@ -1,0 +1,56 @@
+//Colorindo INSIDE CANDLE no TRYD
+//Autor: Matheus Franco - Kyogin//
+//Data: 2020-04-15//
+//------------------------------------
+//COMO UTILIZAR:
+//1- Copie o código abaixo ;
+//2- Clique com o botão direito no gráfico;
+//3- Clique em inserir indicador;
+//4- Script;
+//5- Cole o SCRIPT copiado abaixo na área disponibilizada na plataforma;
+//6- Confirme e reinicie a plataforma;
+//------------------------------------
+
+def barras = BARS();
+r = newLines();
+r.add(barras);
+
+def itens = barras.size();
+
+for (int index = 1; index < itens; index++ ) {
+    //Variaveis de apoio
+    def pBar = barras.bar(index - 1);
+    def bar = barras.bar(index);
+
+    def pHigh = pBar.getHigh();
+    def pLow = pBar.getLow();
+    def cLow = bar.getLow();
+    def cHigh = bar.getHigh();
+
+    def pOpen = pBar.getOpen();
+    def pClose = pBar.getClose();
+    def pMin = pOpen > pClose ? pClose : pOpen;
+    def pMax = pOpen < pClose ? pClose : pOpen;
+
+    def cOpen = bar.getOpen();
+    def cClose = bar.getClose();
+
+    if (cOpen > cClose) {
+        bar.setFill(196, 0, 0);
+        bar.setBorder(128, 128, 128);
+    } else {
+        bar.setFill(0, 99, 198);
+        bar.setBorder(128, 128, 128);
+    }
+
+    //inside
+    if (pHigh > cHigh && pLow < cLow) {
+        if (cOpen > cClose) {
+            bar.setFill(255, 255, 128);
+            bar.setBorder(128, 128, 128);
+        } else {
+            bar.setFill(255, 255, 0);
+            bar.setBorder(128, 128, 128);
+        }
+    }
+}
